@@ -1,151 +1,534 @@
-!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Faith All Shop</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-      body {
-        font-family: Arial, sans-serif;
+      * {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
       }
-
+      body {
+        background: #f9f9f9;
+      }
       header {
-        background-color: #333;
-        color: white;
-        padding: 20px 0;
-        text-align: center;
+        background: #333;
+        color: #fff;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
-
+      header h1 {
+        font-size: 22px;
+      }
       nav ul {
         display: flex;
-        justify-content: center;
-        list-style-type: none;
-        background-color: #444;
-        padding: 10px 0;
-        margin: 0;
+        list-style: none;
+        gap: 20px;
       }
-
-      nav ul li {
-        margin: 0 20px;
-      }
-
       nav ul li a {
-        color: white;
+        color: #fff;
         text-decoration: none;
         font-weight: bold;
+        font-size: 16px;
       }
-
-      main {
+      nav ul li a:hover {
+        text-decoration: underline;
+      }
+      .cart-icon {
+        position: relative;
+        font-size: 22px;
+        color: #fff;
+        cursor: pointer;
+      }
+      .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background: red;
+        color: #fff;
+        font-size: 12px;
+        padding: 2px 6px;
+        border-radius: 50%;
+      }
+      .page {
+        display: none;
         padding: 30px;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 30px;
-        background-color: #f9f9f9;
       }
-
+      .active {
+        display: block;
+      }
+      .products-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        max-width: 1000px;
+        margin: auto;
+      }
       .product {
-        background-color: white;
-        border: 1px solid #ddd;
+        background: #fff;
         border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         padding: 15px;
-        width: 250px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         text-align: center;
+        transition: transform 0.2s ease-in-out;
       }
-
+      .product:hover {
+        transform: translateY(-5px);
+      }
       .product img {
         width: 100%;
-        height: auto;
+        height: 200px;
+        object-fit: cover;
         border-radius: 8px;
       }
-
       .product h3 {
-        margin: 10px 0 5px;
+        margin: 10px 0;
       }
-
       .product p {
-        color: #333;
+        font-size: 16px;
+        color: #28a745;
         font-weight: bold;
       }
-
       .product button {
+        background: #28a745;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      .product button:hover {
+        background: #218838;
+      }
+      .cart-container {
+        max-width: 900px;
+        margin: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      th,
+      td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background: #f1f1f1;
+      }
+      .qty-btn {
+        background: #28a745;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        margin: 0 5px;
+        border-radius: 3px;
+      }
+      .qty-btn:hover {
+        background: #218838;
+      }
+      .remove-btn {
+        background: #dc3545;
+        color: #fff;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      .remove-btn:hover {
+        background: #c82333;
+      }
+      .total-container {
+        text-align: right;
+        font-size: 18px;
+        margin-bottom: 15px;
+      }
+      .checkout-btn {
+        display: inline-block;
+        background: #007bff;
+        color: #fff;
+        padding: 12px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+      .checkout-btn:hover {
+        background: #0056b3;
+      }
+      footer {
+        background: #333;
+        color: #fff;
+        text-align: center;
+        padding: 15px;
+        margin-top: 40px;
+      }
+      /* Checkout Form */
+      .checkout-form {
+        max-width: 800px;
+        margin: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .checkout-form h3 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      label {
+        font-weight: bold;
+      }
+      input,
+      textarea,
+      select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+      }
+      button {
         background-color: #28a745;
         color: white;
         border: none;
-        padding: 10px 15px;
-        margin-top: 10px;
+        padding: 12px;
+        font-size: 16px;
         border-radius: 5px;
         cursor: pointer;
+        margin-top: 15px;
       }
-
-      .product button:hover {
+      button:hover {
         background-color: #218838;
       }
-
-      footer {
+      .success-message {
         text-align: center;
-        background-color: #333;
-        color: white;
-        padding: 15px 0;
-        margin-top: 30px;
+        color: green;
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 20px;
       }
     </style>
   </head>
   <body>
-    <!-- Header -->
     <header>
       <h1>Faith All Shop</h1>
-      <p>selamat datang di toko kami</p>
+      <nav>
+        <ul>
+          <li><a href="#" onclick="showPage('beranda')">Beranda</a></li>
+          <li><a href="#" onclick="showPage('produk')">Produk</a></li>
+          <li><a href="#" onclick="showPage('keranjang')">Keranjang</a></li>
+          <li><a href="#" onclick="showPage('kontak')">Kontak</a></li>
+        </ul>
+      </nav>
+      <div class="cart-icon" onclick="showPage('keranjang')">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" id="cart-count">0</span>
+      </div>
     </header>
 
-    <!-- Navigation Menu -->
-    <nav>
+    <section id="beranda" class="page active">
+      <h2>Selamat datang di Faith All Shop</h2>
+      <p style="text-align: center">
+        Belanja mudah, cepat, dan aman di toko kami!
+      </p>
+    </section>
+
+    <section id="produk" class="page">
+      <h2 style="text-align: center">Produk Kami</h2>
+      <div class="products-container" id="products-list"></div>
+    </section>
+
+    <section id="keranjang" class="page">
+      <h2 style="text-align: center">Keranjang Belanja</h2>
+      <div class="cart-container" id="cart-container">
+        <p style="text-align: center">Keranjang kosong.</p>
+      </div>
+      <div class="total-container" id="total-container"></div>
+      <a
+        href="#"
+        class="checkout-btn"
+        id="checkout-btn"
+        style="display: none"
+        onclick="showPage('checkout')"
+        >Checkout</a
+      >
+    </section>
+
+    <section id="checkout" class="page">
+      <div class="checkout-form">
+        <h3>Checkout Pesanan</h3>
+        <div id="order-summary" class="order-summary"></div>
+        <div class="total" id="checkout-total"></div>
+        <form id="checkout-form">
+          <label>Nama Lengkap</label>
+          <input type="text" id="nama" required />
+          <label>Alamat Lengkap</label>
+          <textarea id="alamat" required></textarea>
+          <label>Metode Pembayaran</label>
+          <select id="metode" required>
+            <option value="">Pilih Metode</option>
+            <option value="Transfer Bank">Transfer Bank</option>
+            <option value="COD">COD (Bayar di Tempat)</option>
+            <option value="E-Wallet">E-Wallet</option>
+          </select>
+          <button type="submit">Konfirmasi Pesanan</button>
+        </form>
+        <div class="success-message" id="success-message" style="display: none">
+          ✅ Pesanan berhasil dikonfirmasi! Terima kasih.
+        </div>
+      </div>
+    </section>
+
+    <section id="kontak" class="page">
+      <h2>Kontak Kami</h2>
       <ul>
-        <li><a href="index.html">Beranda</a></li>
-        <li><a href="produk.html">Produk</a></li>
-        <li><a href="keranjang.html">Keranjang</a></li>
-        <li><a href="kontak.html">Kontak</a></li>
+        <li>
+          📞 WhatsApp:
+          <a href="https://wa.me/6285641850462" target="_blank">085641850462</a>
+        </li>
+        <li>
+          ✉️ Email:
+          <a href="mailto:faithallshop@gmail.com">faithallshop@gmail.com</a>
+        </li>
       </ul>
-    </nav>
+    </section>
 
-    <!-- Produk -->
-    
-    <section class="product">
-        <img src="images/kemeja.jpg.jpeg" alt="" />
-        <h3>kemeja putih pria</h3>
-        <p>Rp150.000</p>
-        <p>Deskripsi: Kemeja putih lengan panjang bahan katun, cocok untuk acara formal maupun kasual.</p>
-      </section>
-
-      <section class="product">
-        <img src="images/jam_tangan_keren.jpg.jpeg" alt="" />
-        <h3>Jam Tangan Elegan</h3>
-        <p>Rp320.000</p>
-        <p>Deskripsi: Jam tangan analog dengan desain minimalis, tali kulit asli, dan fitur tahan air. Cocok untuk gaya formal dan kasual.
-      </section>
-
-      <!-- Bonus: Produk Tambahan -->
-      <section class="product">
-        <img src="images/sepatu.jpg.webp" alt="" />
-        <h3>Sneakers Keren</h3>
-        <p>Rp450.000</p>
-        <p>Deskripsi: Sneakers unisex dengan bahan kanvas berkualitas dan sol karet anti slip. Nyaman dipakai seharian untuk aktivitas santai maupun olahraga ringan.
-      </section>
-
-      <section class="product">
-        <img src="images/tas_wanita.jpg.jpeg" alt="" />
-        <h3>Tas Ransel Wanita</h3>
-        <p>Rp280.000</p>
-        <p>Deskripsi: Tas ransel modis berbahan kulit sintetis, dilengkapi banyak kompartemen, cocok untuk kuliah, kerja, atau hangout. Tersedia dalam berbagai warna menarik.
-      </section>
-    </main>
-
-    <!-- Footer -->
     <footer>
       <p>&copy; 2025 Faith All Shop. All rights reserved.</p>
     </footer>
+
+    <script>
+      const products = [
+        {
+          name: "Sepatu Sport",
+          price: 250000,
+          image:
+            "https://down-id.img.susercontent.com/file/id-11134207-7r98z-loqkd2ocdnbud3",
+        },
+        {
+          name: "Tas Wanita",
+          price: 180000,
+          image:
+            "https://down-id.img.susercontent.com/file/sg-11134201-7qvde-lgt4atnecuyz43",
+        },
+        {
+          name: "Jaket Denim",
+          price: 300000,
+          image:
+            "https://lzd-img-global.slatic.net/g/p/77e15dc45f6956952eae1061ea7468b2.jpg_720x720q80.jpg",
+        },
+        {
+          name: "Kaos Pria",
+          price: 120000,
+          image:
+            "https://images.tokopedia.net/img/cache/500-square/VqbcmM/2022/2/9/2d2a2e1b-9e0c-4d6e-8ced-d6479dcfb892.jpg",
+        },
+      ];
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      function formatRupiah(angka) {
+        return "Rp" + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      }
+
+      function showPage(id) {
+        document
+          .querySelectorAll(".page")
+          .forEach((page) => page.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+        if (id === "keranjang") renderCart();
+        if (id === "checkout") loadOrderSummary();
+      }
+
+      function renderProducts() {
+        const productsList = document.getElementById("products-list");
+        productsList.innerHTML = "";
+        products.forEach((p, index) => {
+          productsList.innerHTML += `
+            <div class="product">
+                <img src="${p.image}" alt="${p.name}">
+                <h3>${p.name}</h3>
+                <p>${formatRupiah(p.price)}</p>
+                <button onclick="addToCart(${index})">Tambah ke Keranjang</button>
+            </div>
+        `;
+        });
+      }
+
+      function addToCart(index) {
+        const product = products[index];
+        const existing = cart.find((item) => item.name === product.name);
+        if (existing) {
+          existing.qty++;
+        } else {
+          cart.push({ ...product, qty: 1 });
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        alert("Produk ditambahkan ke keranjang!");
+      }
+
+      function updateCartCount() {
+        document.getElementById("cart-count").textContent = cart.reduce(
+          (sum, item) => sum + item.qty,
+          0
+        );
+      }
+
+      function renderCart() {
+        const cartContainer = document.getElementById("cart-container");
+        const totalContainer = document.getElementById("total-container");
+        const checkoutBtn = document.getElementById("checkout-btn");
+
+        if (cart.length === 0) {
+          cartContainer.innerHTML =
+            "<p style='text-align:center;'>Keranjang kosong.</p>";
+          totalContainer.textContent = "";
+          checkoutBtn.style.display = "none";
+          return;
+        }
+
+        let tableHTML = `
+        <table>
+            <thead>
+                <tr>
+                    <th>Gambar</th>
+                    <th>Produk</th>
+                    <th>Harga</th>
+                    <th>Jumlah</th>
+                    <th>Total</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+        let grandTotal = 0;
+        cart.forEach((item, index) => {
+          const subtotal = item.price * item.qty;
+          grandTotal += subtotal;
+
+          tableHTML += `
+            <tr>
+                <td><img src="${item.image}" width="60"></td>
+                <td>${item.name}</td>
+                <td>${formatRupiah(item.price)}</td>
+                <td>
+                    <button class="qty-btn" onclick="updateQty(${index}, 'minus')">-</button>
+                    ${item.qty}
+                    <button class="qty-btn" onclick="updateQty(${index}, 'plus')">+</button>
+                </td>
+                <td>${formatRupiah(subtotal)}</td>
+                <td><button class="remove-btn" onclick="removeItem(${index})">Hapus</button></td>
+            </tr>
+        `;
+        });
+
+        tableHTML += "</tbody></table>";
+        cartContainer.innerHTML = tableHTML;
+        totalContainer.textContent = "Total: " + formatRupiah(grandTotal);
+        checkoutBtn.style.display = "inline-block";
+      }
+
+      function updateQty(index, action) {
+        if (action === "plus") {
+          cart[index].qty++;
+        } else if (action === "minus" && cart[index].qty > 1) {
+          cart[index].qty--;
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        renderCart();
+        updateCartCount();
+      }
+
+      function removeItem(index) {
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        renderCart();
+        updateCartCount();
+      }
+
+      // Checkout Functions
+      function loadOrderSummary() {
+        const orderSummary = document.getElementById("order-summary");
+        const totalElement = document.getElementById("checkout-total");
+        orderSummary.innerHTML = "";
+        let total = 0;
+        if (cart.length === 0) {
+          orderSummary.innerHTML = "<p>Keranjang kosong.</p>";
+        } else {
+          cart.forEach((item) => {
+            total += item.price * item.qty;
+            const div = document.createElement("div");
+            div.classList.add("order-item");
+            div.style.display = "flex";
+            div.style.justifyContent = "space-between";
+            div.style.borderBottom = "1px solid #ddd";
+            div.style.padding = "8px 0";
+            div.innerHTML = `
+                <span>${item.name} x${item.qty}</span>
+                <span>${formatRupiah(item.price * item.qty)}</span>
+            `;
+            orderSummary.appendChild(div);
+          });
+        }
+        totalElement.textContent = "Total: " + formatRupiah(total);
+      }
+
+      document
+        .getElementById("checkout-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const nama = document.getElementById("nama").value;
+          const alamat = document.getElementById("alamat").value;
+          const metode = document.getElementById("metode").value;
+
+          if (!nama || !alamat || !metode) {
+            alert("Harap lengkapi semua data!");
+            return;
+          }
+
+          const pesanan = {
+            nama,
+            alamat,
+            metode,
+            items: cart,
+            tanggal: new Date().toLocaleString(),
+          };
+
+          let orders = JSON.parse(localStorage.getItem("orders")) || [];
+          orders.push(pesanan);
+          localStorage.setItem("orders", JSON.stringify(orders));
+
+          localStorage.removeItem("cart"); // kosongkan keranjang
+          document.getElementById("success-message").style.display = "block";
+          document.getElementById("checkout-form").style.display = "none";
+          updateCartCount();
+        });
+
+      renderProducts();
+      updateCartCount();
+    </script>
   </body>
 </html>

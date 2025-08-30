@@ -1,22 +1,25 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Faith All Shop</title>
+    <title>Faith All Shop - Produk</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
       body {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
       }
-
       header {
         background-color: #333;
         color: white;
         padding: 20px 0;
         text-align: center;
       }
-
       nav ul {
         display: flex;
         justify-content: center;
@@ -25,65 +28,80 @@
         padding: 10px 0;
         margin: 0;
       }
-
       nav ul li {
         margin: 0 20px;
       }
-
       nav ul li a {
         color: white;
         text-decoration: none;
         font-weight: bold;
       }
-
+      .cart-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        position: relative;
+      }
+      .cart-count {
+        background: red;
+        color: white;
+        font-size: 12px;
+        border-radius: 50%;
+        padding: 2px 6px;
+        position: absolute;
+        top: -8px;
+        right: -10px;
+      }
       main {
         padding: 30px;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 30px;
         background-color: #f9f9f9;
       }
-
       .product {
         background-color: white;
         border: 1px solid #ddd;
         border-radius: 10px;
         padding: 15px;
-        width: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 400px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         text-align: center;
       }
-
       .product img {
         width: 100%;
-        height: auto;
+        height: 200px;
+        object-fit: cover;
         border-radius: 8px;
       }
-
       .product h3 {
         margin: 10px 0 5px;
+        font-size: 18px;
       }
-
       .product p {
         color: #333;
         font-weight: bold;
+        margin: 5px 0;
       }
-
       .product button {
         background-color: #28a745;
         color: white;
         border: none;
         padding: 10px 15px;
-        margin-top: 10px;
+        margin-top: auto;
         border-radius: 5px;
         cursor: pointer;
+        width: 100%;
       }
-
       .product button:hover {
         background-color: #218838;
       }
-
       footer {
         text-align: center;
         background-color: #333;
@@ -94,51 +112,81 @@
     </style>
   </head>
   <body>
-    <!-- Header -->
     <header>
       <h1>Faith All Shop</h1>
-      <p>selamat datang di toko kami</p>
+      <p>Selamat datang di toko kami</p>
     </header>
-
-    <!-- Navigation Menu -->
     <nav>
       <ul>
         <li><a href="index.html">Beranda</a></li>
         <li><a href="produk.html">Produk</a></li>
-        <li><a href="keranjang.html">Keranjang</a></li>
+        <li>
+          <a href="keranjang.html" class="cart-link">
+            <i class="fas fa-shopping-cart" style="font-size: 20px"></i>
+            <span>Keranjang</span>
+            <span class="cart-count" id="cart-count">0</span>
+          </a>
+        </li>
         <li><a href="kontak.html">Kontak</a></li>
       </ul>
     </nav>
     <main>
-      <section class="product">
-        <img src="images/kemeja.jpg.jpeg" alt="" />
-        <h3>kemeja putih pria</h3>
+      <div class="product">
+        <img src="images/kemeja.jpeg" alt="Kemeja Putih Pria" />
+        <h3>Kemeja Putih Pria</h3>
         <p>Rp150.000</p>
-      </section>
-
-      <section class="product">
-        <img src="images/jam_tangan_keren.jpg.jpeg" alt="" />
+        <button onclick="addToCart('Kemeja Putih Pria', 150000)">
+          Tambah ke Keranjang
+        </button>
+      </div>
+      <div class="product">
+        <img src="images/jam_tangan_keren.jpeg" alt="Jam Tangan Elegan" />
         <h3>Jam Tangan Elegan</h3>
         <p>Rp320.000</p>
-      </section>
-
-      <!-- Bonus: Produk Tambahan -->
-      <section class="product">
-        <img src="images/sepatu.jpg.webp" alt="" />
+        <button onclick="addToCart('Jam Tangan Elegan', 320000)">
+          Tambah ke Keranjang
+        </button>
+      </div>
+      <div class="product">
+        <img src="images/sepatu.webp" alt="Sneakers Keren" />
         <h3>Sneakers Keren</h3>
         <p>Rp450.000</p>
-      </section>
-
-      <section class="product">
-        <img src="images/tas_wanita.jpg.jpeg" alt="" />
+        <button onclick="addToCart('Sneakers Keren', 450000)">
+          Tambah ke Keranjang
+        </button>
+      </div>
+      <div class="product">
+        <img src="images/tas_wanita.jpeg" alt="Tas Ransel Wanita" />
         <h3>Tas Ransel Wanita</h3>
         <p>Rp280.000</p>
-      </section>
+        <button onclick="addToCart('Tas Ransel Wanita', 280000)">
+          Tambah ke Keranjang
+        </button>
+      </div>
     </main>
-
-    <!-- Footer -->
     <footer>
       <p>&copy; 2025 Faith All Shop. All rights reserved.</p>
     </footer>
+    <script>
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      function updateCartCount() {
+        document.getElementById("cart-count").textContent = cart.reduce(
+          (sum, item) => sum + item.qty,
+          0
+        );
+      }
+      function addToCart(name, price) {
+        let product = cart.find((item) => item.name === name);
+        if (product) {
+          product.qty += 1;
+        } else {
+          cart.push({ name: name, price: price, qty: 1 });
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        alert(name + " ditambahkan ke keranjang!");
+      }
+      updateCartCount();
+    </script>
   </body>
 </html>

@@ -1,247 +1,259 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Faith All Shop</title>
+    <title>Faith All Shop - Keranjang</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
       body {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
+        background: #f4f4f4;
       }
-
       header {
-        background-color: #333;
-        color: white;
-        padding: 20px 0;
-        text-align: center;
+        background: #333;
+        color: #fff;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
-
+      header h1 {
+        margin: 0;
+        font-size: 22px;
+      }
       nav ul {
         display: flex;
-        justify-content: center;
-        list-style-type: none;
-        background-color: #444;
-        padding: 10px 0;
+        gap: 15px;
+        list-style: none;
         margin: 0;
+        padding: 0;
       }
-
-      nav ul li {
-        margin: 0 20px;
-      }
-
       nav ul li a {
-        color: white;
+        color: #fff;
         text-decoration: none;
-        font-weight: bold;
+        font-size: 16px;
+      }
+      nav ul li a:hover {
+        text-decoration: underline;
+      }
+      .cart-icon {
+        position: relative;
+        color: #fff;
+        font-size: 20px;
+      }
+      .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        background: red;
+        color: #fff;
+        font-size: 12px;
+        padding: 2px 6px;
+        border-radius: 50%;
       }
 
       main {
-        padding: 30px;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 30px;
-        background-color: #f9f9f9;
-      }
-
-      .product {
-        background-color: white;
-        border: 1px solid #ddd;
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 20px;
+        background: #fff;
         border-radius: 10px;
-        padding: 15px;
-        width: 250px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      th,
+      td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
         text-align: center;
       }
-
-      .product img {
-        width: 100%;
-        height: auto;
-        border-radius: 8px;
+      th {
+        background-color: #f1f1f1;
       }
-
-      .product h3 {
-        margin: 10px 0 5px;
-      }
-
-      .product p {
-        color: #333;
-        font-weight: bold;
-      }
-
-      .product button {
-        background-color: #28a745;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        margin-top: 10px;
+      img {
+        width: 60px;
         border-radius: 5px;
+      }
+      .qty-btn {
+        padding: 5px 10px;
+        margin: 0 5px;
+        background: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
         cursor: pointer;
       }
-
-      .product button:hover {
-        background-color: #218838;
+      .qty-btn:hover {
+        background: #218838;
       }
-
-      footer {
-        text-align: center;
-        background-color: #333;
+      .remove-btn {
+        background: #dc3545;
+        padding: 6px 12px;
+        border: none;
+        border-radius: 3px;
         color: white;
-        padding: 15px 0;
-        margin-top: 30px;
+        cursor: pointer;
+      }
+      .remove-btn:hover {
+        background: #c82333;
+      }
+      .total-container {
+        text-align: right;
+        font-size: 18px;
+        margin-bottom: 15px;
+      }
+      .checkout-btn {
+        display: inline-block;
+        padding: 12px 20px;
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      .checkout-btn:hover {
+        background: #0056b3;
+      }
+      .empty-message {
+        text-align: center;
+        font-size: 18px;
+        color: #555;
       }
     </style>
   </head>
   <body>
-    <!-- Header -->
     <header>
       <h1>Faith All Shop</h1>
-      <p>selamat datang di toko kami</p>
+      <nav>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="produk.html">Produk</a></li>
+          <li><a href="keranjang.html">Keranjang</a></li>
+          <li><a href="kontak.html">Kontak</a></li>
+        </ul>
+      </nav>
+      <a href="keranjang.html" class="cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" id="cart-count">0</span>
+      </a>
     </header>
 
-    <!-- Navigation Menu -->
-    <nav>
-      <ul>
-        <li><a href="index.html">Beranda</a></li>
-        <li><a href="produk.html">Produk</a></li>
-        <li><a href="keranjang.html">Keranjang</a></li>
-        <li><a href="kontak.html">Kontak</a></li>
-      </ul>
-    </nav>
     <main>
-      <main>
-        <div style="text-align: center">
-           
-          <img
-            src="images/kemeja.jpg.jpeg"
-            alt="kemeja putih pria"
-            width="150"
-          />
-           
-          <p>kemeja putih pria</p>
-           
-          <p>Rp150.000</p>
-           
-          <a
-            href="https://wa.me/6285641850462?text=Halo%20saya%20ingin%20beli%20Kemeja%20Putih%20Pria"
-            target="_blank"
-          >
-               
-            <button
-              style="
-                background-color: green;
-                color: white;
-                padding: 8px 16px;
-                border: none;
-                border-radius: 5px;
-              "
-            >
-              Beli
-            </button>
-             
-          </a>
-        </div>
-
-        <div style="text-align: center">
-           
-          <img
-            src="images/jam_tangan_keren.jpg.jpeg"
-            alt="Jam Tangan Elegan"
-            width="150"
-          />
-           
-          <p>Jam Tangan Elegan</p>
-           
-          <p>Rp320.000</p>
-           
-          <a
-            href="https://wa.me/6285641850462?text=Halo%20saya%20ingin%20beli%20Jam%20Tangan%20Elegan"
-            target="_blank"
-          >
-               
-            <button
-              style="
-                background-color: green;
-                color: white;
-                padding: 8px 16px;
-                border: none;
-                border-radius: 5px;
-              "
-            >
-              Beli
-            </button>
-             
-          </a>
-        </div>
-
-        <!-- Bonus: Produk Tambahan -->
-
-        <div style="text-align: center">
-           
-          <img src="images/sepatu.jpg.webp" alt="Sneakers Keren" width="150" />
-           
-          <p>Sneakers Keren</p>
-           
-          <p>Rp450.000</p>
-           
-          <a
-            href="https://wa.me/6285641850462?text=Halo%20saya%20ingin%20beli%20Sneakers"
-            target="_blank"
-          >
-               
-            <button
-              style="
-                background-color: green;
-                color: white;
-                padding: 8px 16px;
-                border: none;
-                border-radius: 5px;
-              "
-            >
-              Beli
-            </button>
-             
-          </a>
-        </div>
-
-        <div style="text-align: center">
-           
-          <img
-            src="images/tas_wanita.jpg.jpeg"
-            alt="Tas Ransel Wanita"
-            width="150"
-          />
-           
-          <p>Tas Ransel Wanita</p>
-           
-          <p>Rp280.000</p>
-           
-          <a
-            href="https://wa.me/6285641850462?text=Halo%20saya%20ingin%20beli%20Tas%20Ransel%20Wanita"
-            target="_blank"
-          >
-               
-            <button
-              style="
-                background-color: green;
-                color: white;
-                padding: 8px 16px;
-                border: none;
-                border-radius: 5px;
-              "
-            >
-              Beli
-            </button>
-             
-          </a>
-        </div>
-      </main>
+      <h2>Keranjang Belanja</h2>
+      <div id="cart-container">
+        <p class="empty-message">Keranjang kosong.</p>
+      </div>
+      <div class="total-container" id="total-container"></div>
+      <a
+        href="checkout.html"
+        class="checkout-btn"
+        id="checkout-btn"
+        style="display: none"
+        >Checkout</a
+      >
     </main>
 
-    <!-- Footer -->
-    <footer>
-      <p>&copy; 2025 Faith All Shop. All rights reserved.</p>
-    </footer>
+    <script>
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartContainer = document.getElementById('cart-container');
+      const totalContainer = document.getElementById('total-container');
+      const checkoutBtn = document.getElementById('checkout-btn');
+      const cartCount = document.getElementById('cart-count');
+
+      function formatRupiah(angka) {
+          return 'Rp' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      }
+
+      function updateCartCount() {
+          let totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+          cartCount.textContent = totalItems;
+      }
+
+      function renderCart() {
+          if (cart.length === 0) {
+              cartContainer.innerHTML = '<p class="empty-message">Keranjang kosong.</p>';
+              totalContainer.textContent = '';
+              checkoutBtn.style.display = 'none';
+              updateCartCount();
+              return;
+          }
+
+          let tableHTML = `
+              <table>
+                  <thead>
+                      <tr>
+                          <th>Gambar</th>
+                          <th>Produk</th>
+                          <th>Harga</th>
+                          <th>Jumlah</th>
+                          <th>Total</th>
+                          <th>Aksi</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+          `;
+
+          let grandTotal = 0;
+          cart.forEach((item, index) => {
+              const subtotal = item.price * item.qty;
+              grandTotal += subtotal;
+
+              tableHTML += `
+                  <tr>
+                      <td><img src="${item.image}" alt="${item.name}"></td>
+                      <td>${item.name}</td>
+                      <td>${formatRupiah(item.price)}</td>
+                      <td>
+                          <button class="qty-btn" onclick="updateQty(${index}, 'minus')">-</button>
+                          ${item.qty}
+                          <button class="qty-btn" onclick="updateQty(${index}, 'plus')">+</button>
+                      </td>
+                      <td>${formatRupiah(subtotal)}</td>
+                      <td><button class="remove-btn" onclick="removeItem(${index})">Hapus</button></td>
+                  </tr>
+              `;
+          });
+
+          tableHTML += </tbody></table>;
+          cartContainer.innerHTML = tableHTML;
+          totalContainer.textContent = 'Total: ' + formatRupiah(grandTotal);
+          checkoutBtn.style.display = 'inline-block';
+          updateCartCount();
+      }
+
+      function updateQty(index, action) {
+          if (action === 'plus') {
+              cart[index].qty++;
+          } else if (action === 'minus') {
+              if (cart[index].qty > 1) {
+                  cart[index].qty--;
+              }
+          }
+          localStorage.setItem('cart', JSON.stringify(cart));
+          renderCart();
+      }
+
+      function removeItem(index) {
+          cart.splice(index, 1);
+          localStorage.setItem('cart', JSON.stringify(cart));
+          renderCart();
+      }
+
+      renderCart();
+    </script>
   </body>
 </html>
